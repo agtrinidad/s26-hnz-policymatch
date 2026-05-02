@@ -66,7 +66,6 @@ Gradio will launch a local web interface. Paste your JetStream2 API key into the
 - **Misuse detection** — distinguishes between accidental misuse and adversarial inputs; blocks and explains appropriately
 - **Result cards** — each result shows program name, subcategory, description, and a relevance score
 - **Suggestion chips** — three actionable follow-up prompts are generated after each search to help users refine their query
-- **Collection bin** — save up to 6 programs per session for reference
 
 ---
 
