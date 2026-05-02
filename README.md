@@ -16,7 +16,7 @@ An LLM-enabled, RAG-powered policy search tool. PolicyMatch lets policy analysts
 | Key | Purpose | Required |
 |-----|---------|----------|
 | JetStream2 API Key | Powers the LLM pipeline (gpt-oss-120b via Indiana University) | Yes |
-| Hugging Face Token | Model download auth for `all-MiniLM-L6-v2` | No |
+| Hugging Face Token | Model download auth for `all-MiniLM-L6-v2` | No, but Recommended |
 
 *JetStream2 API Key available to [NSF ACCESS](https://access-ci.org/) participating organizations.*
 
