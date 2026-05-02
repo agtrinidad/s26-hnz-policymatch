@@ -1,4 +1,4 @@
-# PolicyMatch
+# PolicyMatch (Minimum Viable Product)
 
 ![PolicyMatch UI preview](preview.png)
 
