@@ -1,26 +1,32 @@
 # %%
-print("Now setting up PolicyMatch environment...")
+import sys, threading, time, itertools
+
+def _throbber(label, stop_event):
+    spinner = itertools.cycle(["⠋","⠙","⠹","⠸","⠼","⠴","⠦","⠧","⠇","⠏"])
+    while not stop_event.is_set():
+        sys.stdout.write(f"\r{next(spinner)}  {label}   ")
+        sys.stdout.flush()
+        time.sleep(0.08)
+    sys.stdout.write(f"\r✓  {label}\n")
+    sys.stdout.flush()
+
+def loading(label):
+    stop = threading.Event()
+    t = threading.Thread(target=_throbber, args=(label, stop), daemon=True)
+    t.start()
+    return stop
 
 # DataFrame interfacing
+_s = loading("Loading dependencies...")
 import pandas as pd
 import numpy as np
-
-# File interaction
 import json, os
-
-# Gradio
-import gradio as gr
-
-# NLP
 import re
+import gradio as gr
 from sentence_transformers import SentenceTransformer
-
-# LLM support
 from openai import OpenAI
-
-
-# Chroma
 import chromadb
+_s.set(); time.sleep(0.12)
 
 # %% [markdown]
 # ## JetStream Access
@@ -39,21 +45,15 @@ def make_client(api_key):
 # %%
 # Grabs directory of current folder
 current_dir = os.getcwd() + r'\chroma_db'
-print(current_dir)
 
-# %%
-# set up connection
+_s = loading("Connecting to ChromaDB...")
 chroma_client = chromadb.PersistentClient(path=current_dir)
 collection = chroma_client.get_or_create_collection(name='policymatch')
+_s.set(); time.sleep(0.12)
 
-# %%
-# check collection size
-print(f"Total documents in collection: {collection.count()}")
-
-if collection.count() > 0:
-  CHROMA_AVAILABLE = True;
-else:
-  CHROMA_AVAILABLE = False;
+n_docs = collection.count()
+print(f"✓  {n_docs} documents in collection")
+CHROMA_AVAILABLE = n_docs > 0
 
 # %%
 # Functions to interact with local chroma
@@ -107,7 +107,7 @@ def query_chroma(prompt, hf_token=None):
     print(f"Query: {prompt}")
     print(f"Average Distance: {df['distance'].mean():.2f}")
     print(f"Median Distance: {df['distance'].median():.2f}")
-    print(df.to_string())
+    print(df)
 
     return df
 
@@ -749,14 +749,20 @@ with gr.Blocks(
                       inputs=[bin_signal, collection_bin_state],
                       outputs=[collection_bin_state])
 
-# %%
-# Autoclose existing demo (if such exists)
 demo.close()
 
-# %%
-demo.launch(share=False,
-            debug=True,
-            css=CUSTOM_CSS,
-            theme=gr.themes.Soft())
+_s = loading("Launching PolicyMatch...")
+try:
+    demo.launch(share=False,
+                debug=True,
+                css=CUSTOM_CSS,
+                theme=gr.themes.Soft())
+    print("\nPolicyMatch is running. Press Ctrl+C to stop.")
+    while True:
+        time.sleep(1)
+except KeyboardInterrupt:
+    print("\nShutting down PolicyMatch...")
+    demo.close()
+    print("Shutdown complete! PolicyMatch is now closed.")
 
 
