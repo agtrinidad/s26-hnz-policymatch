@@ -281,7 +281,7 @@ If there is misuse, redirect the user towards ways to APPROPRIATELY use the syst
         suggestions.append("")
 
     try:
-      print(f"THINKING: {new_past_context}")
+      print(f"AGENT: {new_past_context}")
     except KeyError:
       pass
 
@@ -751,13 +751,13 @@ with gr.Blocks(
 
 demo.close()
 
-_s = loading("Launching PolicyMatch...")
+_s = loading("PolicyMatch (Ctrl+C to Stop) |")
 try:
+    print("\n*** PolicyMatch is now running. Press Ctrl+C twice to stop at any time. ***")
     demo.launch(share=False,
                 debug=True,
                 css=CUSTOM_CSS,
                 theme=gr.themes.Soft())
-    print("\nPolicyMatch is running. Press Ctrl+C to stop.")
     while True:
         time.sleep(1)
 except KeyboardInterrupt:
