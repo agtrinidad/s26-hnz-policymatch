@@ -1,4 +1,4 @@
-# PolicyMatch
+# PolicyMatch (Minimum Viable Product)
 
 ![PolicyMatch UI preview](preview.png)
 
@@ -16,7 +16,7 @@ An LLM-enabled, RAG-powered policy search tool. PolicyMatch lets policy analysts
 | Key | Purpose | Required |
 |-----|---------|----------|
 | JetStream2 API Key | Powers the LLM pipeline (gpt-oss-120b via Indiana University) | Yes |
-| Hugging Face Token | Model download auth for `all-MiniLM-L6-v2` | No |
+| Hugging Face Token | Model download auth for `all-MiniLM-L6-v2` | No, but Recommended |
 
 *JetStream2 API Key available to [NSF ACCESS](https://access-ci.org/) participating organizations.*
 
@@ -66,7 +66,6 @@ Gradio will launch a local web interface. Paste your JetStream2 API key into the
 - **Misuse detection** — distinguishes between accidental misuse and adversarial inputs; blocks and explains appropriately
 - **Result cards** — each result shows program name, subcategory, description, and a relevance score
 - **Suggestion chips** — three actionable follow-up prompts are generated after each search to help users refine their query
-- **Collection bin** — save up to 6 programs per session for reference
 
 ---
 
