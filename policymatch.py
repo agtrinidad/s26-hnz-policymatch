@@ -746,14 +746,14 @@ def main():
 
     _s = loading("PolicyMatch (Ctrl+C to Stop) |")
     try:
-        print("\n*** PolicyMatch is now running. Press Ctrl+C twice to stop at any time. ***")
+        print("\n======= PolicyMatch is now running. Press Ctrl+C twice to stop at any time. =======")
         demo.launch(share=False, debug=True, css=CUSTOM_CSS, theme=gr.themes.Soft())
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
         print("\nShutting down PolicyMatch...")
         demo.close()
-        print("Shutdown complete! PolicyMatch is now closed.")
+        print("========= Shutdown complete! PolicyMatch is now closed. =========")
 
 
 if __name__ == "__main__":
